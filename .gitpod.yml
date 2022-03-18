@@ -18,8 +18,7 @@ tasks:
       composer update --no-interaction --prefer-dist
       mysql -e "CREATE DATABASE IF NOT EXISTS edusec_test;"
       mysql -e "CREATE DATABASE IF NOT EXISTS edusec;"
-      #chmod +x ./yii
-      #chmod +x ./tests/bin/yii
+      chmod +x ./yii
       echo "Now you'll need to `/install.php` for automatic installation...
     command: |
       ./yii serve 0.0.0.0
