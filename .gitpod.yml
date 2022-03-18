@@ -1,0 +1,27 @@
+image:
+  file: .gitpod.Dockerfile
+
+# exposed ports
+ports:
+- port: 3306 # MySQL
+  onOpen: ignore
+- port: 9009
+  onOpen: ignore
+- port: 8080
+  onOpen: open-preview
+
+
+# start up tasks
+tasks:
+  # init: Will be executed one time when creating a workspace, command: will be exected each time you open workspace
+  - init: |
+      composer update --no-interaction --prefer-dist
+      mysql -e "CREATE DATABASE IF NOT EXISTS edusec_test;"
+      mysql -e "CREATE DATABASE IF NOT EXISTS edusec;"
+      #chmod +x ./yii
+      #chmod +x ./tests/bin/yii
+      echo "Now you'll need to `/install.php` for automatic installation...
+    command: |
+      ./yii serve 0.0.0.0
+  # - command: gp await-port 8080 && ./vendor/bin/codecept run --coverage
+  - command: gp await-port 8080 && gp preview $(gp url 8080)
